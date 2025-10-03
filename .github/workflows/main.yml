@@ -1,0 +1,54 @@
+name: Run Sportsbook Engine
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Adjust as needed; consumer may run indefinitely
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'  # Caches pnpm store and node_modules
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-chromedriver: true
+
+      - name: Create .env file from secrets
+        run: |
+          cat > .env << EOF
+          USERNAME=${{ secrets.USERNAME }}
+          PASSWORD=${{ secrets.PASSWORD }}
+          BASE_URL=${{ secrets.BASE_URL }}
+          NATS_SERVERS=${{ secrets.NATS_SERVERS }}
+          SPORTSBOOK_ID=${{ secrets.SPORTSBOOK_ID }}
+          EOF
+
+      - name: Run the program
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          HEADLESS: true  # Force headless mode for CI (assumes code checks this env var)
+        run: |
+          # Optional: Modify code for headless if not already handled
+          sed -i 's/headless: false/headless: true/g' executor.js || true
+          node executor.js
