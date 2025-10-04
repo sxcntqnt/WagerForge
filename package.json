@@ -1,6 +1,6 @@
 {
   "name": "betcruncher",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A betting calculator engine",
   "repository": "digitaldesignlabs/betcruncher",
   "author": {
@@ -15,6 +15,10 @@
     {
       "name": "Mike Hall",
       "email": "mikehall314@gmail.com"
+    },
+    {
+      "name": "sxcntqnt",
+      "email": "getinada@gmail.com"
     }
   ],
   "scripts": {
@@ -22,14 +26,18 @@
     "test": "./node_modules/.bin/tape test",
     "test:cover": "./node_modules/.bin/istanbul cover test"
   },
-  "main": "lib/betcruncher.js",
+  "main": "lib/executor.js",
   "files": [
     "lib"
   ],
   "license": "GPL-2.0",
   "devDependencies": {
-    "eslint": "^4.11.0",
-    "istanbul": "^0.4.5",
-    "tape": "^4.8.0"
+    "eslint": "^9.37.0",
+    "nyc": "^17.1.0",
+    "tape": "^5.9.0"
+  },
+  "dependencies": {
+    "pnpm": "^10.18.0",
+    "puppeteer-core": "^24.23.0"
   }
 }

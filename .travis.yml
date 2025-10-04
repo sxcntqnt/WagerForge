@@ -3,6 +3,36 @@ node_js:
   - "9"
   - "8"
   - "7"
-  - "6"
-  - "5"
-  - "4"
+
+jobs:
+  include:
+    - name: "Instance 1"
+      script: node lib/executor.js
+    - name: "Instance 2"
+      script: node lib/executor.js
+    - name: "Instance 3"
+      script: node lib/executor.js
+    - name: "Instance 4"
+      script: node lib/executor.js
+    - name: "Instance 5"
+      script: node lib/executor.js
+    - name: "Instance 6"
+      script: node lib/executor.js
+    - name: "Instance 7"
+      script: node lib/executor.js
+    - name: "Instance 8"
+      script: node lib/executor.js
+    - name: "Instance 9"
+      script: node lib/executor.js
+    - name: "Instance 10"
+      script: node lib/executor.js
+    - name: "Instance 11"
+      script: node lib/executor.js
+    - name: "Instance 12"
+      script: node lib/executor.js
+    - name: "Instance 13"
+      script: node lib/executor.js
+    - name: "Instance 14"
+      script: node lib/executor.js
+    - name: "Instance 15"
+      script: node lib/executor.js
