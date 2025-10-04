@@ -1,4 +1,4 @@
-name: Run Sportsbook Engine
+name: SprtbkEgn
 
 on:
   schedule:
