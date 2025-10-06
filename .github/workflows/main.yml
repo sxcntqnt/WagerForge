@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '0 */12 * * *'
   workflow_dispatch:
+  push:
 
 jobs:
   run:
@@ -51,5 +52,5 @@ jobs:
           HEADLESS: true  # Force headless mode for CI (assumes code checks this env var)
         run: |
           # Optional: Modify code for headless if not already handled
-          sed -i 's/headless: false/headless: true/g' executor.js || true
+          # sed -i 's/headless: false/headless: true/g' executor.js || true
           node lib/executor.js
