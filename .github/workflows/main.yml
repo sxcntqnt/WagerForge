@@ -52,4 +52,4 @@ jobs:
         run: |
           # Optional: Modify code for headless if not already handled
           sed -i 's/headless: false/headless: true/g' executor.js || true
-          node executor.js
+          node lib/executor.js
