@@ -37,6 +37,7 @@
     "tape": "^5.9.0"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "nats": "^2.29.3",
     "pnpm": "^10.18.0",
     "puppeteer-core": "^24.23.0"
