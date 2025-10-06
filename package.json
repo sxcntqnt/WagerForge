@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "dotenv": "^17.2.3",
+    "js-yaml": "^4.1.0",
     "nats": "^2.29.3",
     "pnpm": "^10.18.0",
     "puppeteer-core": "^24.23.0"
