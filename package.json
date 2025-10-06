@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "pnpm": "^10.18.0",
-    "puppeteer-core": "^24.23.0"
+    "puppeteer-core": "^24.23.0",
+    "nats": "^2.0.0"
   }
 }
