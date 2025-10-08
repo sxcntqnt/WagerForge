@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "A betting calculator engine",
   "repository": "digitaldesignlabs/betcruncher",
+  "type": "module",
   "author": {
     "name": "Digital Design Labs",
     "contact": "hello@digitaldesignlabs.com"
@@ -37,6 +38,8 @@
     "tape": "^5.9.0"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.12.2",
     "dotenv": "^17.2.3",
     "js-yaml": "^4.1.0",
     "nats": "^2.29.3",
