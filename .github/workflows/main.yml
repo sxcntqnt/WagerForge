@@ -39,12 +39,67 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Install Chrome dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates \
+            fonts-liberation \
+            libasound2 \
+            libatk-bridge2.0-0 \
+            libatk1.0-0 \
+            libc6 \
+            libcairo2 \
+            libcups2 \
+            libdbus-1-3 \
+            libexpat1 \
+            libfontconfig1 \
+            libgbm1 \
+            libgcc1 \
+            libglib2.0-0 \
+            libgtk-3-0 \
+            libnspr4 \
+            libnss3 \
+            libpango-1.0-0 \
+            libpangocairo-1.0-0 \
+            libstdc++6 \
+            libx11-6 \
+            libx11-xcb1 \
+            libxcb1 \
+            libxcomposite1 \
+            libxcursor1 \
+            libxdamage1 \
+            libxext6 \
+            libxfixes3 \
+            libxi1 \
+            libxrandr2 \
+            libxrender1 \
+            libxss1 \
+            libxtst6 \
+            lsb-release \
+            wget \
+            xdg-utils
+
       - name: Setup Chrome
         id: setup-chrome
         uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: stable
           install-chromedriver: true
+
+      - name: Setup Chrome setuid sandbox
+        run: |
+          CHROME_BIN="${{ steps.setup-chrome.outputs.chrome-path }}"
+          CHROME_DIR=$(dirname "$CHROME_BIN")
+          cd "$CHROME_DIR"
+          # Create symlink for expected filename (Chrome for Testing uses underscore)
+          sudo ln -sf chrome_sandbox chrome-sandbox
+          # Set setuid permissions (requires root ownership)
+          sudo chown root:root chrome-sandbox
+          sudo chmod 4755 chrome-sandbox
+          # Copy to shared location for reuse across versions
+          sudo cp -p chrome-sandbox /usr/local/sbin/chrome-sandbox
+          # Export for Puppeteer/Chromium to use the setuid helper
+          echo "CHROME_DEVEL_SANDBOX=/usr/local/sbin/chrome-sandbox" >> $GITHUB_ENV
 
       - name: Create .env file from secrets
         run: |
@@ -61,6 +116,7 @@ jobs:
       - name: Run the program
         env:
           PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROME_DEVEL_SANDBOX: ${{ env.CHROME_DEVEL_SANDBOX }}  # Ensure setuid helper is used
           HEADLESS: true  # Force headless mode for CI (assumes code checks this env var)
         run: |
           # Optional: Modify code for headless if not already handled
