@@ -6,6 +6,16 @@ on:
   workflow_dispatch:
   push:
 
+concurrency:
+  # https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#concurrency
+  # 'group' must be a key uniquely representing a PR or push event.
+  # github.workflow is the workflow name
+  # github.actor is the user invoking the workflow
+  # github.head_ref is the source branch of the PR or otherwise blank
+  # github.run_id is a unique number for the current run
+  group: ${{ github.workflow }}-${{ github.actor }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -44,6 +54,8 @@ jobs:
           BASE_URL=${{ secrets.BASE_URL }}
           NATS_SERVERS=${{ secrets.NATS_SERVERS }}
           SPORTSBOOK_ID=${{ secrets.SPORTSBOOK_ID }}
+          # Use Chrome path provided by setup-chrome action
+          BROWSER_PATH=${{ steps.setup-chrome.outputs.chrome-path }}
           EOF
 
       - name: Run the program
