@@ -44,6 +44,7 @@
     "js-yaml": "^4.1.0",
     "nats": "^2.29.3",
     "pnpm": "^10.18.0",
+    "puppeteer-cluster": "^0.24.0",
     "puppeteer-core": "^24.23.0",
     "winston": "^3.18.3"
   }
