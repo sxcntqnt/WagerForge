@@ -38,12 +38,14 @@
     "tape": "^5.9.0"
   },
   "dependencies": {
+    "@noble/hashes": "^2.0.1",
     "adm-zip": "^0.5.16",
     "axios": "^1.12.2",
     "dotenv": "^17.2.3",
     "js-yaml": "^4.1.0",
     "msgpackr": "^1.11.5",
     "nats": "^2.29.3",
+    "noise-handshake": "^4.1.0",
     "pnpm": "^10.18.0",
     "puppeteer-cluster": "^0.24.0",
     "puppeteer-core": "^24.23.0",
